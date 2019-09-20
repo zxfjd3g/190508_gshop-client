@@ -4,25 +4,25 @@
       <span class="item_icon">
         <i class="iconfont icon-waimai"></i>
       </span>
-      <span>外卖</span>
+      <span>{{$t('footer.weimai')}}</span>
     </span>
     <span class="guide_item" :class="{on: '/search'===$route.path}" @click="goto('/search')">
       <span class="item_icon">
         <i class="iconfont icon-search"></i>
       </span>
-      <span>搜索</span>
+      <span>{{$t('footer.search')}}</span>
     </span>
     <a href="javascript:;" class="guide_item" :class="{on: '/order'===$route.path}" @click="goto('/order')">
       <span class="item_icon">
         <i class="iconfont icon-dingdan"></i>
       </span>
-      <span>订单</span>
+      <span>{{$t('footer.order')}}</span>
     </a>
     <a href="javascript:;" class="guide_item" :class="{on: '/profile'===$route.path}" @click="goto('/profile')">
       <span class="item_icon">
         <i class="iconfont icon-geren"></i>
       </span>
-      <span>我的</span>
+      <span>{{$t('footer.own')}}</span>
     </a>
   </footer>
 </template>

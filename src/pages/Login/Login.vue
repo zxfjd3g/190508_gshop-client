@@ -54,9 +54,11 @@
               </section>
             </section>
           </div>
-          <button class="login_submit" @click.prevent="login">登录</button>
+          <button class="login_submit" @click.prevent="login">{{$t('login')}}</button>
         </form>
-        <a href="javascript:;" class="about_us">关于我们</a>
+        <a href="javascript:;" class="about_us">{{$t('about_us')}}</a>
+        <br>
+        <button @click="toggle" style="width: 100%">切换语言</button>
       </div>
       <a href="javascript:" class="go_back">
         <i class="iconfont icon-jiantou2"></i>
@@ -113,8 +115,16 @@
         if (success) {
           alert('提交登陆请求')
         }
+      },
+
+      toggle () {
+        // console.log(this.$i18n, this)
+        this.$i18n.locale = this.$i18n.locale === 'en' ? 'zh_CN' : 'en'
+        localStorage.setItem('locale_key', this.$i18n.locale)
       }
-    }
+    },
+
+    
   }
 </script>
 

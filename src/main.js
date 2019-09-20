@@ -6,6 +6,7 @@ import router from './router'
 import App from './App.vue'
 import Header from './components/Header/Header.vue'
 import Star from './components/Star/Star.vue'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
 
@@ -16,5 +17,6 @@ Vue.component('Star', Star)
 new Vue({
   render: h => h(App),
   router,
+  i18n,
   store
 }).$mount('#app')
