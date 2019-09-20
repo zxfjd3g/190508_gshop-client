@@ -3,7 +3,7 @@
     2). github地址: https://github.com/baianat/vee-validate
 # 2. 使用
 ## 1). 引入
-    下载: yarn add vee-validate
+    下载: yarn add vee-validate@2.2.15
     引入插件:
         import Vue from 'vue'
         import VeeValidate from 'vee-validate'
