@@ -4,11 +4,13 @@ import store from './vuex/store'
 import router from './router'
 import App from './App.vue'
 import Header from './components/Header/Header.vue'
+import Star from './components/Star/Star.vue'
 
 Vue.config.productionTip = false
 
 // 注册全局组件标签
 Vue.component('Header', Header)
+Vue.component('Star', Star)
 
 new Vue({
   render: h => h(App),

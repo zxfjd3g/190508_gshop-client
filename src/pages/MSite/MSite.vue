@@ -11,7 +11,7 @@
     </Header>
     <!--首页导航-->
     <nav class="msite_nav">
-      <div class="swiper-container">
+      <div class="swiper-container" v-if="categorys.length>0">
         <div class="swiper-wrapper">
           <!-- cateogorysArr -->
           <div class="swiper-slide" v-for="(cateogorys, index) in cateogorysArr" :key="index">
@@ -27,6 +27,7 @@
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
+      <img src="./images/msite_back.svg" alt="loading" v-else>
     </nav>
     <ShopList/>
   </section>
@@ -38,11 +39,13 @@
   import {mapState} from 'vuex'
   import Swiper from 'swiper'
   import 'swiper/css/swiper.min.css'
-  import ShopList from '../../components/ShopList/ShopList'
+  import ShopList from '../../components/ShopList/ShopList.vue'
 
   export default {
 
     async mounted () {
+
+      this.$store.dispatch('getShops')
 
       // 异步获取分类列表到vuex的state
       /* this.$store.dispatch('getCategorys', () => {// categorys状态数据更新了
