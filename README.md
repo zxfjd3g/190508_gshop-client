@@ -74,7 +74,7 @@
         axios.interceptors.response.use(onResolved, onRejected)
 
 ### 3). 封装axios
-    a. 利用请求拦截器, 对所有post请求的请求参数转换为urlencode格式字符串: name=xxx&pwd=yyy
+    a. 利用请求拦截器, 对所有post请求的请求参数转换为urlencoded格式字符串: name=xxx&pwd=yyy
     b. 利用响应拦截器的成功回调, 让请求成功接收到的数据不是response, 而是response.data
     c. 利用响应拦截器的失败回调, 对请求异常进行统一的处理, 具体的请求不需要单独再做请求异常处理
 
