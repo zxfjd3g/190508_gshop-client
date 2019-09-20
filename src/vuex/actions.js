@@ -34,7 +34,7 @@ export default {
    /* 
   请求获取商品分类列表的异步action
   */
-  async getCategorys ({commit, state}, callback) {
+  async getCategorys ({commit}, callback) {
     // 1. 发异步ajax请求
     const result = await reqCategorys()
     // 2. 请求成功后, 提交mutation
