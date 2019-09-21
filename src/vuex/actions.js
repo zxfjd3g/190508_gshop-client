@@ -11,7 +11,9 @@ import {
   RECEIVE_ADDRESS,
   RECEIVE_SHOPS,
   RECEIVE_CATEGORYS,
-  RECEIVE_USER
+  RECEIVE_USER,
+  RECEIVE_TOKEN,
+  LOGOUT
 } from './mutation-types'
 
 export default {
@@ -67,7 +69,21 @@ export default {
   保存用户的同步action
   */
   saveUser ({commit}, user) {
-    
+    // 将token保存local中
+    const token = user.token
+    localStorage.setItem('token_key', token)
+    delete user.token
     commit(RECEIVE_USER, {user})
+    commit(RECEIVE_TOKEN, {token})
+  },
+
+  /* 
+  退出登陆
+  */
+  logout ({commit}) {
+    // 清除local中的token
+    localStorage.removeItem('token_key')
+    // 清除state中user/token
+    commit(LOGOUT)
   }
 }

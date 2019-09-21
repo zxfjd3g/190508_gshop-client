@@ -3,7 +3,9 @@
 */
 import axios from 'axios'
 import qs from 'qs'
-import {MessageBox} from 'mint-ui'
+import {MessageBox, Toast} from 'mint-ui'
+import store from "../vuex/store"
+import router from "../router"
 
 // 创建一个新的Axios的实例(功能上)
 const instance = axios.create({
@@ -15,9 +17,23 @@ const instance = axios.create({
 添加请求拦截器, 处理Post请求参数(从对象转换为urlencoding)
 */
 instance.interceptors.request.use((config) => {
+
+  // 处理Post请求参数(从对象转换为urlencoding)
   if (config.method.toUpperCase()==='POST' && config.data instanceof Object) {
     config.data = qs.stringify(config.data) // username=tom&pwd=123
   }
+
+  // 处理token问题
+  const token = store.state.token
+  
+  if (config.headers.needToken) {
+    if (token) {
+      config.headers['Authorization'] = token
+    } else {
+      throw new Error('没有token, 不发请求')
+    }
+  }
+
   return config
 })
 /* 
@@ -30,8 +46,31 @@ instance.interceptors.response.use(
     return response.data
   },
   error => {
-    MessageBox('提示', error.message)
-    return new Promise(() => {}) // 返回一个pending状态的promise
+    // 1. 没有token直接发请求的错误
+    if (!error.response) {
+      if (router.currentRoute.path!=='/login') {
+        Toast(error.message)
+        // 跳转到登陆页面
+        router.replace('/login')
+      }
+    } else {
+      // 2. 发了请求, 但token失效了
+      if (error.response.status==401) {
+        // 退出登陆
+        store.dispatch('logout')
+        // 如果当前没有在登陆界面, 自动跳转到登陆页面
+        if (router.currentRoute.path!=='/login') {
+          Toast(error.message)
+          // 跳转到登陆页面
+          router.replace('/login')
+        }
+      } else if (error.response.status==404) { // 3. 404错误
+        Toast('此资源不存在')
+      }
+      // 4. 其它
+      MessageBox('提示', error.message)
+      return new Promise(() => {}) // 返回一个pending状态的promise
+    }
   }
 )
 
