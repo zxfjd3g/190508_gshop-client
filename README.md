@@ -92,13 +92,13 @@
         接口请求函数: 根据接口文档定义
         解决ajax的跨越域问题: 配置代理, 对代理的理解
     2). vuex编码
-        创建所有相关的模块: store/index|state|mutations|actions|getters|mutation-types
+        创建所有相关的模块: vuex/store|state|mutations|actions|getters|mutation-types
         设计state: 从后台获取的数据
         实现actions: 
             定义异步action: async/await
             流程:　发ajax获取数据, commit给mutation
         实现mutations: 给状态赋值
-        实现index: 创建store对象
+        实现store: 创建store对象
         main.js: 配置store
     3). 组件异步显示数据
         在mounted()通过$store.dispatch('actionName')来异步获取后台数据到state中
@@ -108,9 +108,10 @@
 ## 2. 异步显示分类轮播
     通过vuex获取categorys数组(发请求, 读取)
     对数据进行整合一计算(一维为特定的二维数组)
+        lodash的chunk工具方法
     使用Swiper显示轮播, 如何在界面更新之后创建Swiper对象?
         1). 使用watch+$nextTick( () =>{界面更新之后立即执行})
-        2). 使用回调+$nextTick()
+        2). 使用自定义回调+$nextTick()
         3). 利用dispatch()返回的promise	
     使用svg图片实现loading的效果
 
