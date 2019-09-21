@@ -8119,7 +8119,7 @@ vue-i18n-extract@^0.4.13:
     is-valid-glob "^1.0.0"
     yargs "^13.2.2"
 
-vue-i18n@^8.0.0:
+vue-i18n@^8.0.0, vue-i18n@^8.14.1:
   version "8.14.1"
   resolved "https://registry.npm.taobao.org/vue-i18n/download/vue-i18n-8.14.1.tgz#0ca0a2742c14e0144481655157fffcc7cc313e50"
   integrity sha1-DKCidCwU4BREgWVRV//8x8wxPlA=
