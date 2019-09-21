@@ -2,6 +2,7 @@ import Vue from 'vue'
 import {Button} from 'mint-ui'
 
 import './validate'
+import './mock/mockServer'
 import store from './vuex/store'
 import router from './router'
 import App from './App.vue'

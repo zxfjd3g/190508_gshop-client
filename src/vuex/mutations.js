@@ -8,7 +8,10 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_USER,
   RECEIVE_TOKEN,
-  LOGOUT
+  LOGOUT,
+  RECEIVE_GOODS,
+  RECEIVE_RATINGS,
+  RECEIVE_INFO
 } from './mutation-types'
 
 export default {
@@ -30,5 +33,17 @@ export default {
   [LOGOUT] (state) {
     state.token = ''
     state.user = {}
+  },
+
+  [RECEIVE_INFO](state, {info}) {
+    state.info = info
+  },
+  
+  [RECEIVE_RATINGS](state, {ratings}) {
+    state.ratings = ratings
+  },
+  
+  [RECEIVE_GOODS](state, {goods}) {
+    state.goods = goods
   },
 }

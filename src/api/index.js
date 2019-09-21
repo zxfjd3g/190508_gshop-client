@@ -79,3 +79,7 @@ export const reqAutoLogin = () => ajax('/auto_login', {
     needToken: true
   }
 })
+
+export const reqInfo = () => ajax('/info')
+export const reqGoods = () => ajax('/goods')
+export const reqRatings = () => ajax('/ratings')
