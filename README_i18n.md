@@ -13,17 +13,17 @@
 		a. 创建/修改国际化的message文件
 			src/locales/zh_CN.json: 
 				{
-	              "message": "你好, 国际化 !!"
-	            }
+					"message": "你好, 国际化 !!"
+				}
 			src/locales/en.json
-	        	{
-	              "message": "hello i18n !!"
-	            }
-	    b. 在组件中读取当前应用指定locale的message
-	    	$t('message')
-	    c. 读取/设置当前应用的locale
-	    	读取: this.$i18n.locale
-	    	更新: this.$i18n.locale = 'en' // 一旦更新整个应用中所有的message都自动更新为en的版本
-	    d. 保存/读取当前设置的locale
-	    	保存: localStorage.setItem('locale_key', 'en')
-	    	读取: locale: localStorage.getItem('locale_key')  // src/i18n.js
+				{
+					"message": "hello i18n !!"
+				}
+		b. 在组件中读取当前应用指定locale的message
+			$t('message')
+		c. 读取/设置当前应用的locale
+			读取: this.$i18n.locale
+			更新: this.$i18n.locale = 'en' // 一旦更新整个应用中所有的message都自动更新为en的版本
+		d. 保存/读取当前设置的locale
+			保存: localStorage.setItem('locale_key', 'en')
+			读取: locale: localStorage.getItem('locale_key')  // src/i18n.js
