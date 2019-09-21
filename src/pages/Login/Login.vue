@@ -49,7 +49,8 @@
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码"
                   v-model="captcha" name="captcha" v-validate="{required: true,regex: /^[0-9a-zA-Z]{4}$/}">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img ref="captcha" class="get_verification" src="http://localhost:4000/captcha" alt="captcha"
+                  @click="updateCaptcha">
                 <span style="color: red;" v-show="errors.has('captcha')">{{ errors.first('captcha') }}</span>
               </section>
             </section>
@@ -66,10 +67,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { Toast, MessageBox } from 'mint-ui'
+  // import {reqSendCode, reqPwdLogin, reqSmsLogin} from '../../api'
   export default {
     data () {
       return {
-        loginWay: true, // true: 短信登陆, false: 密码登陆
+        loginWay: false, // true: 短信登陆, false: 密码登陆
         phone: '', // 手机号
         code: '', // 短信验证码
         name: '', // 用户名
@@ -88,20 +91,35 @@
     },
 
     methods: {
-      sendCode () {
+      /* 发送短信验证码 */
+      async sendCode () {
         // 设置computeTime为最大值
         this.computeTime = 10
         // 启动循环定时器, 每隔1s将computeTime减1
         const intervalId = setInterval(() => {
           this.computeTime--
           // 当计时为0, 停止计时
-          if (this.computeTime===0) {
+          if (this.computeTime<=0) {
             clearInterval(intervalId)
           }
         }, 1000);
+
+        // 发请求 ==> 发短信的接口
+        const result = await this.$API.reqSendCode(this.phone)
+        if (result.code===0) {
+          Toast('短信发送成功!')
+        } else {
+          // 停止计时
+          this.computeTime = 0
+          MessageBox('提示', result.msg);
+        }
       },
 
+      /* 
+      登陆
+      */
       async login () {
+        // 进行前台表单验证
         let names
         if (this.loginWay) {
           names = ['phone', 'code']
@@ -111,8 +129,43 @@
 
         const success = await this.$validator.validateAll(names) // 对指定的所有表单项进行验证
         if (success) {
-          alert('提交登陆请求')
+          const {phone, code, name, pwd, captcha} = this
+          // 验证通过后发登陆的请求
+          let result
+          if (this.loginWay) {
+            result = await this.$API.reqSmsLogin({phone, code})
+            // 请求结束后, 停止计时
+            this.computeTime = 0
+          } else {
+            result = await this.$API.reqPwdLogin({name, pwd, captcha})
+            if (result.code!==0) { // 登陆失败了
+              this.updateCaptcha() // 更新图形验证码
+              this.captcha = ''
+            }
+          }
+
+          // 根据请求的结果进行处理
+          if (result.code===0) { // 登陆请求成功
+            const user = result.data
+            // 保存user到state
+            this.$store.dispatch('saveUser', user)
+            // 跳转到个人中心
+            this.$router.replace('/profile')
+          } else { // 登陆请求失败
+            MessageBox.alert(result.msg)
+          }
+
+          
+          
         }
+      },
+
+      /* 
+      更新图形验证码
+      */
+      updateCaptcha () {
+        // 如何让浏览器对图片重新请求: 图片地址携带一个时间戳参数
+        this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+ Date.now()
       }
     }
   }

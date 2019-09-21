@@ -10,7 +10,8 @@ import {
 import {
   RECEIVE_ADDRESS,
   RECEIVE_SHOPS,
-  RECEIVE_CATEGORYS
+  RECEIVE_CATEGORYS,
+  RECEIVE_USER
 } from './mutation-types'
 
 export default {
@@ -61,4 +62,12 @@ export default {
       typeof callback==='function' && callback()
     }
   },
+
+  /* 
+  保存用户的同步action
+  */
+  saveUser ({commit}, user) {
+    
+    commit(RECEIVE_USER, {user})
+  }
 }

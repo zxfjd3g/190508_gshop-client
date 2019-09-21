@@ -28,3 +28,38 @@ export const reqShops = ({longitude, latitude}) => ajax.get('/shops', {
     longitude
   }
 })
+
+/* 
+7、发送短信验证码
+*/
+export const reqSendCode = (phone) => ajax({
+  url: "/sendcode",
+  params: {
+    phone
+  }
+})
+
+/* 
+用户名密码登陆
+*/
+export const reqPwdLogin = ({name, pwd, captcha}) => ajax({
+  url: '/login_pwd',
+  method: 'POST',
+  data: {
+    name,
+    pwd,
+    captcha
+  }
+})
+
+/* 
+手机号验证码登陆
+*/
+export const reqSmsLogin = ({phone, code}) => ajax({
+  url: '/login_sms',
+  method: 'POST',
+  data: {
+    phone, 
+    code
+  }
+})

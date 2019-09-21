@@ -3,6 +3,7 @@
 */
 import axios from 'axios'
 import qs from 'qs'
+import {MessageBox} from 'mint-ui'
 
 // 创建一个新的Axios的实例(功能上)
 const instance = axios.create({
@@ -29,7 +30,7 @@ instance.interceptors.response.use(
     return response.data
   },
   error => {
-    alert(error.message)
+    MessageBox('提示', error.message)
     return new Promise(() => {}) // 返回一个pending状态的promise
   }
 )
