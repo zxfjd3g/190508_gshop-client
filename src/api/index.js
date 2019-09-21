@@ -70,3 +70,12 @@ export const reqSmsLogin = ({phone, code}) => ajax({
     code
   }
 })
+
+/* 
+自动登陆
+*/
+export const reqAutoLogin = () => ajax('/auto_login', {
+  headers: {
+    needToken: true
+  }
+})
