@@ -193,3 +193,7 @@
     goods
     ratings
     info
+
+## 7. 使用vue-i18n实现vue应用的国际化
+    README_i18n.md
+
