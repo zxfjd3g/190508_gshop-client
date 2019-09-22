@@ -75,9 +75,9 @@ export const reqSmsLogin = ({phone, code}) => ajax({
 自动登陆
 */
 export const reqAutoLogin = () => ajax('/auto_login', {
-  headers: {
+  /* headers: {
     needToken: true
-  }
+  } */
 })
 
 export const reqInfo = () => ajax('/info')

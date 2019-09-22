@@ -4,25 +4,25 @@
       <span class="item_icon">
         <i class="iconfont icon-waimai"></i>
       </span>
-      <span>外卖</span>
+      <span>{{$t('footer_home')}}</span>
     </span>
     <span class="guide_item" :class="{on: '/search'===$route.path}" @click="goto('/search')">
       <span class="item_icon">
         <i class="iconfont icon-search"></i>
       </span>
-      <span>搜索</span>
+      <span>{{$t('footer_search')}}</span>
     </span>
     <a href="javascript:;" class="guide_item" :class="{on: '/order'===$route.path}" @click="goto('/order')">
       <span class="item_icon">
         <i class="iconfont icon-dingdan"></i>
       </span>
-      <span>订单</span>
+      <span>{{$t('footer_order')}}</span>
     </a>
     <a href="javascript:;" class="guide_item" :class="{on: '/profile'===$route.path}" @click="goto('/profile')">
       <span class="item_icon">
         <i class="iconfont icon-geren"></i>
       </span>
-      <span>我的</span>
+      <span>{{$t('footer_own')}}</span>
     </a>
   </footer>
 </template>
@@ -32,11 +32,13 @@
     name: 'FooterGuide',
     methods: {
       goto (path) {
-        console.log(path, this.$route)
-        if (this.$router.currentRoute.path!==path) {
+        // console.log('goto()', this.$router)
+        // this.$router.replace(path)
+        // 如果
+        if (this.$route.path!==path) {
           this.$router.replace(path)
         } else {
-          window.location = path
+          window.location = this.$router.mode==='hash' ? '/#' : '' + path
         }
       }
     }
