@@ -32,14 +32,8 @@
     name: 'FooterGuide',
     methods: {
       goto (path) {
-        // console.log('goto()', this.$router)
-        // this.$router.replace(path)
-        // 如果
-        if (this.$route.path!==path) {
-          this.$router.replace(path)
-        } else {
-          window.location = this.$router.mode==='hash' ? '/#' : '' + path
-        }
+        console.log('goto()', this.$router)
+        this.$router.replace(path)
       }
     }
   }
