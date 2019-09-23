@@ -57,7 +57,9 @@
       }
     },
     computed: {
-      ...mapState(['goods']),
+      ...mapState({
+        goods: state => state.shop.goods
+      }),
       /* 
       当前分类的下标
       */

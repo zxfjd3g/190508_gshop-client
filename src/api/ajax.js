@@ -24,7 +24,7 @@ instance.interceptors.request.use((config) => {
   }
 
   // 处理token问题
-  const token = store.state.token
+  const token = store.state.user.token
   // 只要浏览端token就携带给服务端
   if (token) {
     config.headers['Authorization'] = token
