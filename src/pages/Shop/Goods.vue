@@ -1,10 +1,11 @@
 <template>
   <div>
     <div class="goods">
-      <div class="menu-wrapper">
+      <div class="menu-wrapper" ref="left">
         <ul>
           <!-- current -->
-          <li class="menu-item" v-for="(good, index) in goods" :key="good.name">
+          <li class="menu-item" v-for="(good, index) in goods" 
+            :key="good.name" :class="{current: currentIndex===index}">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
               {{good.name}}
@@ -12,7 +13,7 @@
           </li>
         </ul>
       </div>
-      <div class="foods-wrapper">
+      <div class="foods-wrapper" ref="right">
         <ul v-for="(good, index) in goods" :key="good.name">
           <li class="food-list-hook">
             <h1 class="title">{{good.name}}</h1>
@@ -45,11 +46,53 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from '@better-scroll/core'
   import {mapState} from 'vuex'
   export default {
+
+    data () {
+      return {
+        scrollY: 8, // 右侧列表滑动的y轴坐标, 右侧滑动过程中实时更新
+        tops: [0, 5, 9, 12, 18], // 右侧所有分类的<li>的top的数组, 在列表显示之后更新一次
+      }
+    },
     computed: {
-      ...mapState(['goods'])
-    }
+      ...mapState(['goods']),
+      /* 
+      当前分类的下标
+      */
+      currentIndex () {
+        const {scrollY, tops} = this
+
+        return tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
+      }
+    },
+
+    mounted () {
+      if (this.goods.length>0) {
+        this.initScroll()
+      }
+    },
+
+    watch: {
+      goods () {
+        this.$nextTick(() => {
+          this.initScroll()
+        })
+      }
+    },
+
+    methods: {
+      initScroll () {
+        // 必须在列表数据显示之后
+        new BScroll(this.$refs.left, {
+
+        })
+        new BScroll(this.$refs.right, {
+          
+        })
+      }
+    },
   }
 </script>
 
