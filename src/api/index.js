@@ -19,7 +19,7 @@ export const reqAddress = (longitude, latitude) => ajax({
 */
 export const reqCategorys = () => ajax('/index_category', {
   headers: {
-    needToken: true
+    checkToken: true
   }
 })
 
@@ -32,7 +32,7 @@ export const reqShops = ({longitude, latitude}) => ajax.get('/shops', {
     longitude
   },
   headers: {
-    needToken: true
+    checkToken: true
   }
 })
 
@@ -75,7 +75,7 @@ export const reqSmsLogin = ({phone, code}) => ajax({
 自动登陆
 */
 export const reqAutoLogin = () => ajax('/auto_login', {
-  /* headers: {
+/*   headers: {
     needToken: true
   } */
 })

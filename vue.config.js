@@ -16,6 +16,7 @@ module.exports = {
   },
 
   pluginOptions: {
+    // 配置i18n插件
     i18n: {
       locale: 'zh_CN',
       fallbackLocale: 'zh_CN',

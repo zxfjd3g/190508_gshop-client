@@ -25,6 +25,6 @@ Vue.component(Button.name, Button)
 new Vue({
   render: h => h(App),
   router,
-  i18n,
+  i18n, // 所有的组件多了: $t(key) / $i18n
   store
 }).$mount('#app')

@@ -21,6 +21,8 @@
   export default {
     mounted () {
       this.$store.dispatch('getShopInfo')
+      this.$store.dispatch('getShopGoods')
+      this.$store.dispatch('getShopRatings')
     },
     
     components: {
