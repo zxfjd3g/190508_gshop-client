@@ -2,10 +2,10 @@
   <div>
     <div class="goods">
       <div class="menu-wrapper" ref="left">
-        <ul>
+        <ul ref="leftUl">
           <!-- current -->
           <li class="menu-item" v-for="(good, index) in goods" 
-            :key="good.name" :class="{current: currentIndex===index}">
+            :key="good.name" :class="{current: currentIndex===index}" @click="selectItem(index)">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
               {{good.name}}
@@ -14,8 +14,8 @@
         </ul>
       </div>
       <div class="foods-wrapper" ref="right">
-        <ul v-for="(good, index) in goods" :key="good.name">
-          <li class="food-list-hook">
+        <ul ref="rightUl">
+          <li class="food-list-hook" v-for="(good, index) in goods" :key="good.name">
             <h1 class="title">{{good.name}}</h1>
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="food.name">
@@ -53,7 +53,7 @@
     data () {
       return {
         scrollY: 8, // 右侧列表滑动的y轴坐标, 右侧滑动过程中实时更新
-        tops: [0, 5, 9, 12, 18], // 右侧所有分类的<li>的top的数组, 在列表显示之后更新一次
+        tops: [], // 右侧所有分类的<li>的top的数组, 在列表显示之后更新一次
       }
     },
     computed: {
@@ -64,13 +64,24 @@
       currentIndex () {
         const {scrollY, tops} = this
 
-        return tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
+        const index = tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
+        // 如果新的index与保存的index不一样
+        if (index!=this.index && this.leftScroll) {
+          // 保存最新的index
+          this.index = index
+          // 在当前分类变化时, 让左侧列表滑动到当前分类处
+          const li = this.$refs.leftUl.children[index]
+          this.leftScroll.scrollToElement(li, 300)
+        }
+
+        return index
       }
     },
 
     mounted () {
       if (this.goods.length>0) {
         this.initScroll()
+        this.initTops()
       }
     },
 
@@ -78,19 +89,72 @@
       goods () {
         this.$nextTick(() => {
           this.initScroll()
+          this.initTops()
         })
       }
     },
 
     methods: {
+      /* 
+      初始化滚动对象
+      */
       initScroll () {
         // 必须在列表数据显示之后
-        new BScroll(this.$refs.left, {
+        // 左侧scroll对象
+        this.leftScroll = new BScroll(this.$refs.left, {
+          click: true, // 分发click事件
+        })
+        // 右侧scroll对象
+        this.rightScroll = new BScroll(this.$refs.right, {
+          click: true, // 分发click事件
+          probeType: 1  // 非实时 触摸
+          // probeType: 2  // 实时 触摸
+          // probeType: 3  // 实时 触摸/惯性/编码
+        })
 
+        // 绑定scroll监听
+        this.rightScroll.on('scroll', ({x, y}) => {
+          console.log('scroll()', x, y)
+          this.scrollY = Math.abs(y)
         })
-        new BScroll(this.$refs.right, {
-          
+
+        // 绑定scrollEnd监听
+        this.rightScroll.on('scrollEnd', ({x, y}) => {
+          console.log('scrollEnd()', x, y)
+          this.scrollY = Math.abs(y)
         })
+      },
+
+      /* 
+      初始化指定tops
+      */
+      initTops () {
+        const tops = []
+        let top = 0
+        tops.push(top)
+        const lis = Array.from(this.$refs.rightUl.children)
+        lis.forEach(li => {
+          top += li.clientHeight
+          tops.push(top)
+        })
+
+        // 更新tops
+        this.tops = tops
+        console.log('tops', tops)
+      },
+
+      /* 
+      选择某个分类项
+      */
+      selectItem (index) {
+        // 得到对应的top
+        const top = this.tops[index]
+
+        // 立即将scrollY更新为最终的目标值
+        this.scrollY = top
+
+        // 让右侧列表滑动到对应的位置
+        this.rightScroll.scrollTo(0, -top, 300)
       }
     },
   }
