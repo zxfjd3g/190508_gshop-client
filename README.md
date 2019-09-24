@@ -222,7 +222,7 @@
 
 ## 2. ShopGoods组件滑动相关
 ### 1). 基本滑动
-    下载并引入better-scroll
+    下载并引入better-scroll@next
     new BScroll(wrapDiv, {})
     better-scroll禁用了原生的dom事件, 使用的是自定义事件, 而且默认不分发
 
@@ -249,7 +249,7 @@
     2). 通过rightScroll滚动到对应的位置: rightScroll.scrollTo(0, -tops[index])
     3). 立即更新scrollY
 
-### 4). 如何保证当前分类项总是可见?
+### 4). 滑动右侧列表时, 如何保证当前分类项总是可见?
     一旦当前分类变化了, 让左侧列表滑动到当前分类处
     如何判断变化了?
     scroll.scrollToElement(li)

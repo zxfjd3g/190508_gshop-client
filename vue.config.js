@@ -1,4 +1,11 @@
 // vue.config.js
+const path = require('path')
+
+/* 根据指定目录名得到根目录的绝对路径 */
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   devServer: {
     host: '0.0.0.0',
@@ -14,6 +21,21 @@ module.exports = {
       },
     }
   },
+
+  /* 编写webpack支持的配置 */
+  configureWebpack: {
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js',
+        '@': resolve('src'),
+        'components': resolve('src/components'),
+        'pages': resolve('src/pages'),
+      }
+    },
+  },
+
+  
 
   pluginOptions: {
     // 配置i18n插件

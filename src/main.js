@@ -23,7 +23,9 @@ Vue.component(Button.name, Button)
 
 
 new Vue({
-  render: h => h(App),
+  // render: h => h(App),
+  components: {App},
+  template: '<App/>',
   router,
   i18n, // 所有的组件多了: $t(key) / $i18n
   store

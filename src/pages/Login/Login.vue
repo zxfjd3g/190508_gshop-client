@@ -72,6 +72,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // import {setInterval} from 'timers'
   import { Toast, MessageBox } from 'mint-ui'
   // import {reqSendCode, reqPwdLogin, reqSmsLogin} from '../../api'
   export default {
@@ -102,6 +103,7 @@
         this.computeTime = 10
         // 启动循环定时器, 每隔1s将computeTime减1
         const intervalId = setInterval(() => {
+          console.log('-------')
           this.computeTime--
           // 当计时为0, 停止计时
           if (this.computeTime<=0) {
