@@ -11,7 +11,9 @@
       </div>
     </div>
 
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     
   </div>
 </template>
@@ -22,7 +24,7 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/stylus/mixins.styl"
   .tab
     height 40px
