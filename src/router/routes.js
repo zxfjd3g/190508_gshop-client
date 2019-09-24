@@ -14,6 +14,15 @@ import B from '../pages/test/B.vue'
 import B1 from '../pages/test/B1.vue'
 import B2 from '../pages/test/B2.vue'
 
+import Review from 'pages/Review/Review.vue'
+import SlotTest from 'pages/Review/SlotTest/SlotTest.vue'
+import MixinTest from 'pages/Review/MixinTest/MixinTest.vue'
+import ComponentTest from 'pages/Review/ComponentTest/ComponentTest.vue'
+import EventTest from 'pages/Review/EventTest/EventTest.vue'
+import ModelTest from 'pages/Review/ModelTest/ModelTest.vue'
+import ReactiveTest from 'pages/Review/ReactiveTest/ReactiveTest.vue'
+import LifeTest from 'pages/Review/LifeTest/LifeTest.vue'
+
 export default [
   {
     path: '/msite',
