@@ -1,10 +1,14 @@
 /* 
 对应shop功能模块的配置对象
 */
+import Vue from 'vue'
+
 import {
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  ADD_FOOD_COUNT,
+  REDUCE_FOOD_COUNT
 } from '../mutation-types'
 
 import {
@@ -28,6 +32,24 @@ const mutations = {
   },
   [RECEIVE_GOODS](state, {goods}) {
     state.goods = goods
+  },
+  [ADD_FOOD_COUNT](state, {food}) {
+    // food.name='xxx'
+    if (!food.count) { // 第一次
+      // 给food添加一个新的属性: 属性名为count, 值为1
+      // food.count = 1 // 不会自动更新界面: 新增加的属性没有数据绑定
+      // 为响应式对象添加一个属性，确保新属性也是响应式的，并且能够触发视图更新
+      // Vue.set( target, key, value )
+      Vue.set(food, 'count', 1)
+    } else {
+      food.count++
+    }
+   
+  },
+  [REDUCE_FOOD_COUNT](state, {food}) {
+    if (food.count>0) {
+      food.count--
+    }
   },
 }
 
@@ -64,6 +86,15 @@ const actions = {
       cb && cb()
     }
   },
+
+  /* 更新food数量的同步action */
+  updateFoodCount ({commit}, {isAdd, food}) {
+    if (isAdd) {
+      commit(ADD_FOOD_COUNT, {food})
+    } else {
+      commit(REDUCE_FOOD_COUNT, {food})
+    }
+  }
 }
 const getters = {}
 
