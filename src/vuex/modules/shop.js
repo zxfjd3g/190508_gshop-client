@@ -7,11 +7,7 @@ import {
   RECEIVE_INFO
 } from '../mutation-types'
 
-import {
-  reqGoods,
-  reqInfo,
-  reqRatings
-} from '../../api'
+import API from '@/api'
 
 const state = {
   goods: [], // 商品列表
@@ -34,7 +30,7 @@ const mutations = {
 const actions = {
   // 异步获取商家信息
   async getShopInfo({commit}, cb) {
-    const result = await reqInfo()
+    const result = await API.shop.reqInfo()
     if(result.code===0) {
       const info = result.data
       commit(RECEIVE_INFO, {info})
@@ -45,7 +41,7 @@ const actions = {
 
   // 异步获取商家评价列表
   async getShopRatings({commit}, cb) {
-    const result = await reqRatings()
+    const result = await API.shop.reqRatings()
     if(result.code===0) {
       const ratings = result.data
       commit(RECEIVE_RATINGS, {ratings})
@@ -56,7 +52,7 @@ const actions = {
 
   // 异步获取商家商品列表
   async getShopGoods({commit}, cb) {
-    const result = await reqGoods()
+    const result = await API.shop.reqGoods()
     if(result.code===0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})

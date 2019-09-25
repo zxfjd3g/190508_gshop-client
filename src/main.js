@@ -8,7 +8,7 @@ import router from './router'
 import App from './App.vue'
 import Header from './components/Header/Header.vue'
 import Star from './components/Star/Star.vue'
-import * as API from './api'
+import API from './api'
 import i18n from './i18n'
 
 Vue.config.productionTip = false

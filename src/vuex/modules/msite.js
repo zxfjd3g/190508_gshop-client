@@ -7,11 +7,7 @@ import {
   RECEIVE_CATEGORYS,
 } from '../mutation-types'
 
-import {
-  reqAddress,
-  reqCategorys,
-  reqShops,
-} from '../../api'
+import API from '@/api'
 
 const state = {
   latitude: 40.10038, // 纬度
@@ -40,7 +36,7 @@ const actions = {
   async getAddress ({commit, state}, callback) {
     // 1. 发异步ajax请求
     const {longitude, latitude} = state
-    const result = await reqAddress(longitude, latitude)
+    const result = await API.msite.getAddress({longitude, latitude})
     // 2. 请求成功后, 提交mutation
     if (result.code===0) {
       const address = result.data
@@ -55,7 +51,7 @@ const actions = {
   */
   async getCategorys ({commit}, callback) {
     // 1. 发异步ajax请求
-    const result = await reqCategorys()
+    const result = await API.msite.getCategorys()
     // 2. 请求成功后, 提交mutation
     if (result.code===0) {
       const categorys = result.data
@@ -71,7 +67,7 @@ const actions = {
   async getShops ({commit, state}, callback) {
     // 1. 发异步ajax请求
     const {longitude, latitude} = state
-    const result = await reqShops({longitude, latitude})
+    const result = await API.msite.getShops({longitude, latitude})
     // 2. 请求成功后, 提交mutation
     if (result.code===0) {
       const shops = result.data

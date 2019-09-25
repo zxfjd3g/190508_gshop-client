@@ -8,9 +8,7 @@ import {
   LOGOUT,
 } from '../mutation-types'
 
-import {
-  reqAutoLogin,
-} from '../../api'
+import API from '@/api'
 
 
 const state = {
@@ -58,7 +56,7 @@ const actions = {
   自动登陆的异步action
   */
   async autoLogin ({commit}) {
-    const result = await reqAutoLogin()
+    const result = await API.user.reqAutoLogin()
     if (result.code===0) {
       const user = result.data
       commit(RECEIVE_USER, {user})
