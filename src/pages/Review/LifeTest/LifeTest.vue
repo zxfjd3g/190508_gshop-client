@@ -6,7 +6,7 @@
     <br>
     <br>
     <button @click="update">更新标题</button>
-    <button @click="$destroy()">destroyVM</button>
+    <button @click="destroyComp">destroyVM</button>
   </div>
 </template>
 
@@ -23,6 +23,9 @@
       update () {
         console.log('update()')
         this.title='标题333'
+      },
+      destroyComp () {
+        this.$destroy()
       }
     },
 
