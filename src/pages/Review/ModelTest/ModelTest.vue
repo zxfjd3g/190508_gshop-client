@@ -6,10 +6,9 @@
     <!-- 
       $event: 代表分发事件时传递的数据
       浏览器自动分发事件时, 会传递一个包含所有相关事件数据的对象(event)
-     -->
-    <input type="text" :value="name2" @input="name2 = $event.target.value"> 
+    -->
+    <input type="text" :value="name2" @input="name2=$event.target.value"> 
     <span>{{name2}}</span>
-
     <hr>
 
     <MyInput v-model="name3"></MyInput>
