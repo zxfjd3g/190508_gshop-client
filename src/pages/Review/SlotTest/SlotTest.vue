@@ -23,7 +23,7 @@
     <Slot3>
       <!-- slotProps是保存<slot>的所有属性 -->
       <template slot-scope="slotProps">
-        <span v-if="slotProps.todo.isComplete">{{ slotProps.todo.text }}✓</span>
+        <span v-if="slotProps.todo.isComplete">{{slotProps.todo.text}}++</span>
       </template>
     </Slot3>
 
