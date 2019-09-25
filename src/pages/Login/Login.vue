@@ -112,7 +112,7 @@
         }, 1000);
 
         // 发请求 ==> 发短信的接口
-        const result = await this.$API.reqSendCode(this.phone)
+        const result = await this.$API2.user.sendCode(this.phone)
         if (result.code===0) {
           Toast('短信发送成功!')
         } else {
@@ -140,11 +140,11 @@
           // 验证通过后发登陆的请求
           let result
           if (this.loginWay) {
-            result = await this.$API.reqSmsLogin({phone, code})
+            result = await this.$API2.user.loginSms({phone, code})
             // 请求结束后, 停止计时
             this.computeTime = 0
           } else {
-            result = await this.$API.reqPwdLogin({name, pwd, captcha})
+            result = await this.$API2.user.loginPwd({name, pwd, captcha})
             if (result.code!==0) { // 登陆失败了
               this.updateCaptcha() // 更新图形验证码
               this.captcha = ''
