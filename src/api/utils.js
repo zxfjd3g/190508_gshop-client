@@ -1,9 +1,11 @@
 /* 
 根据匹配组装ajax请求函数
+返回一个包含n个能发ajax的方法的对象
 */
 import qs from 'qs'
 
 export default (apiObjs, axiosInstance) => {
+  
   return Object.keys(apiObjs).reduce((pre, key) => {
     let {url, method='GET', corsUrl='', isForm=false, checkToken=false} = apiObjs[key]
     if (corsUrl) {

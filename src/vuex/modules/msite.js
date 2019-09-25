@@ -68,7 +68,10 @@ const actions = {
   async getShops ({commit, state}, callback) {
     // 1. 发异步ajax请求
     const {longitude, latitude} = state
-    const result = await API.msite.getShops({longitude, latitude})
+    const result = await API.msite.getShops({longitude, latitude}, {
+      onSuccess() {},
+      onError () {}
+    })
     // 2. 请求成功后, 提交mutation
     if (result.code===0) {
       const shops = result.data
