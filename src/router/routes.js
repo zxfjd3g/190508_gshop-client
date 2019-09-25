@@ -87,7 +87,7 @@ export default [
     path: '/b',
     component: B,
     children: [
-	  {
+      {
         path: '/b/b1',
         component: B1
       },
@@ -97,6 +97,40 @@ export default [
       },
     ]
    },
+   {
+    path: '/review',
+    component: Review,
+    children: [
+      {
+        path: '/review/slot',
+        component: SlotTest
+      },
+      {
+        path: '/review/mixin',
+        component: MixinTest
+      },
+      {
+        path: '/review/component',
+        component: ComponentTest
+      },
+      {
+        path: '/review/event',
+        component: EventTest
+      },
+      {
+        path: '/review/model',
+        component: ModelTest
+      },
+      {
+        path: '/review/reactive',
+        component: ReactiveTest
+      },
+      {
+        path: '/review/life',
+        component: LifeTest
+      },
+    ]
+  },
 
   {
     path: '/',

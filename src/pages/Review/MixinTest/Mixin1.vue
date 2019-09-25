@@ -20,7 +20,7 @@
     
     computed: {
       test () {
-        
+        return 1
       }
     }
   }

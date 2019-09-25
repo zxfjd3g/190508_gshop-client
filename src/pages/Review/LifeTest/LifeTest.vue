@@ -11,7 +11,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { watch } from 'fs';
   export default {
 
     data () {

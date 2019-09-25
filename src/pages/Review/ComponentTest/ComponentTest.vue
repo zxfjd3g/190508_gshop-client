@@ -50,8 +50,6 @@
 
   Vue.component('async-component3', () => import('./AsyncComponent2.vue'))
 
-  
-
   export default {
     name: 'ComponentTest',
 
