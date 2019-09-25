@@ -148,7 +148,7 @@
               this.captcha = ''
             }
           }
-
+          debugger
           // 根据请求的结果进行处理
           if (result.code===0) { // 登陆请求成功
             const user = result.data

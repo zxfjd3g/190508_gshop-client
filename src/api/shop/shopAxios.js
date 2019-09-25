@@ -8,10 +8,10 @@ shopAxios.interceptors.request.use((config)=>{
     return config
 })
 
-shopAxios.interceptors.response.use((res)=>{
-    return res.data
-},(err)=>{
-    return Promise.reject(err)
+shopAxios.interceptors.response.use((response)=>{
+    return response.data
+},(error)=>{
+    return Promise.reject(error)
 })
 
 export default shopAxios

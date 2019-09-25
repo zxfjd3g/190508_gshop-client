@@ -52,6 +52,7 @@ const actions = {
   async getCategorys ({commit}, callback) {
     // 1. 发异步ajax请求
     const result = await API.msite.getCategorys()
+    debugger
     // 2. 请求成功后, 提交mutation
     if (result.code===0) {
       const categorys = result.data

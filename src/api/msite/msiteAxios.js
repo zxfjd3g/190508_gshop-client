@@ -9,28 +9,28 @@ const msiteAxios = axios.create({
 
 msiteAxios.interceptors.request.use(config => {
   Indicator.open()
-
-  // 如果请求配置标识了需要携带token
-  const { needToken } = config.headers
-  if (needToken) {
-    // 取出state中的token
-    const token = store.state.user.token
-    // 如果token有值, 添加授权的头, 值为token
-    if (token) {
-      config.headers.Authorization = token
-    } else {
+  // 取出state中的token
+  const token = store.state.user.token
+  if (token) {
+    config.headers.Authorization = token
+  } else {
+    // 如果请求配置标识了需要携带token
+    const { checkToken } = config.headers
+    if (checkToken) {
       // 抛出异常, 直接进行错误处理流程(不发请求)
       const error = new Error('没有token, 不用发请求')
       error.status = 401 // 添加一个标识
       throw error
     }
   }
-
+  
    // 对params参数进行处理
   if(config.url === "/4000/position"){
     config.url = config.url+"/"+config.params.latitude+","+config.params.longitude
     config.params = {}
   }
+
+  return config
 })
 
 msiteAxios.interceptors.response.use(
@@ -75,8 +75,8 @@ msiteAxios.interceptors.response.use(
     }
 
     // return error
-    // return Promise.reject(error)
-    return new Promise(() => {})  // 中断promise链
+    return Promise.reject(error)
+    // return new Promise(() => {})  // 中断promise链
   }
 )
 

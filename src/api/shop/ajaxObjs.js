@@ -1,13 +1,13 @@
 export default {
-  loginPwd: {
+  getInfo: {
     url: "/api/info",
     method:"get",
   },
-  sendCode: {
+  getGoods: {
     url: '/api/goods',
     method:'get',
   },
-  loginSms: {
+  getRatings: {
     url: "/api/ratings",
     method:"get",
   }
